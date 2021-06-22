@@ -19,7 +19,6 @@ package csimigration
 import (
 	"errors"
 	"fmt"
-
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/component-base/featuregate"
 	csilibplugins "k8s.io/csi-translation-lib/plugins"
@@ -72,6 +71,8 @@ func (pm PluginManager) IsMigrationCompleteForPlugin(pluginName string) bool {
 		return pm.featureGate.Enabled(features.InTreePluginOpenStackUnregister)
 	case csilibplugins.VSphereInTreePluginName:
 		return pm.featureGate.Enabled(features.InTreePluginvSphereUnregister)
+	case csilibplugins.PortworxVolumePluginName:
+		return pm.featureGate.Enabled(features.InTreePluginPortworxUnregister)
 	default:
 		return false
 	}
@@ -98,6 +99,8 @@ func (pm PluginManager) IsMigrationEnabledForPlugin(pluginName string) bool {
 		return pm.featureGate.Enabled(features.CSIMigrationOpenStack)
 	case csilibplugins.VSphereInTreePluginName:
 		return pm.featureGate.Enabled(features.CSIMigrationvSphere)
+	case csilibplugins.PortworxVolumePluginName:
+		return pm.featureGate.Enabled(features.CSIMigrationPortworx)
 	default:
 		return false
 	}
